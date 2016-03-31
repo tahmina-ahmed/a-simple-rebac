@@ -4,21 +4,21 @@ class Graph(object):
             self._graph_dict = graph_dict
 
         def list_nodes(self):
-            """ returns the users of the relationship graph """
+            """ returns the nodes of the  graph """
             return list(self._graph_dict.keys())
         
-        def relationships(self):
-            """ returns the relationships among the users in the relationship graph """
-            return list(self._generate_relationship())
+        def list_edges(self):
+            """ returns the edges among the nodes in the graph """
+            return list(self._generate_edges())
         
-        def _generate_relationship(self):
+        def _generate_edge(self):
             """ A static method generates the relationships among users in the graph"""
-            relationships = []
+            edges = []
             for node in self._graph_dict:
               for adjacent_node in self._graph_dict[node]:
-                if {adjacent_node, node} not in relationships:
-                    relationships.append({node, adjacent_node})
-            return relationships
+                if {adjacent_node, node} not in edges:
+                    edges.append({node, adjacent_node})
+            return edges
         
         def create_node(self,node):
             """ If "node" does not exist  in self._graph_dict
@@ -27,19 +27,11 @@ class Graph(object):
             if node not in self._graph_dict:
                self._graph_dict[node] = []
 
-       	def add_relationship(self, node1, node2):
-            """ Add Relationship between two existing users, if the users doesn't exist through error"""
-            if  self.check_userExistence(node1) and self.check_userExistence(node2):
-                if self.check_policy('addRelation', node1, node2):
+       	def add_edge(self, node1, node2):
+            """ Add edge between two existing nodes, if the users doesn't exist through error"""
                     self._graph_dict[node1].append(node2)
                     self._graph_dict[node2].append(node1)
-                    print("relationship successfully created between",node1,"and",node2)
                     return True
-                else:
-                    print("Policy doesn't authorize to create relationship between", node1,"and",node2)
-                    return False
-            else:
-                return False 
                 
 
         def delete_relationship(self, node1, node2):
