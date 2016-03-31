@@ -1,32 +1,26 @@
 
+import json
+from pprint import pprint
+
 class Policy(object):
         _path_dict = {}
         _paths= []
         _policy_dict= {}
+        _source_user
+        _target_user
+        def __init__(self):
+            with open('policy.json') as data_file:
+            self._policy_dict = json.load(data_file)
+
         def check_policy(self, action_type, source_user, target_user):
-            if action_type == 'addRelation':
-                 return self.add_relationship_policy(source_user, target_user)
-            elif action_type == 'deleteRelation':
-                 return self.delete_relationship_policy(source_user, target_user)
-            elif action_type == 'access':
-                 return self.access_policy(source_user, target_user)
-
-        def add_relationship_policy(self, paths, source_user, target_user):
-           """ check policy to add relationship between two users"""
-           self._paths= paths
-           return True
-
-        def delete_relationship_policy(self, paths, source_user,target_user):
-           """ check  policy to delete relationship between two users"""
-           self._paths = paths 
-           return True
-
-        def access_policy(self, paths,source_user,target_user):
-           """check policy to access target user"""
            self._paths = paths
-           return True
-           
+           self.compute_path_dict()
+           return self.evaluate_policy(action_type)
+
         def compute_path_dict():
             for path in self._paths:
                     self._path_dict[len(path)].append(path)
+                    
+        def evaluate_policy(action-type):
+                
                     
