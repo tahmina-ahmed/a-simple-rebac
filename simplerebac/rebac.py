@@ -1,41 +1,32 @@
+from graph import Graph
+from policy import Policy
 class RelationshipGraph(object):
         def __init__(self, relationship_graph_dict={}):
             """ Initializes the relationship graph"""
-            self.__relationship_graph_dict = relationship_graph_dict
-
+            Graph graph = Graph(relationship_graph_dict)
+            Policy policy = Policy()
         def user_list(self):
             """ returns the users of the relationship graph """
-            return list(self.__relationship_graph_dict.keys())
+            return self.graph.list_nodes()
         
         def relationships(self):
             """ returns the relationships among the users in the relationship graph """
-            return list(self.__generate_relationship())
-        
-        def __generate_relationship(self):
-            """ A static method generates the relationships among users in the graph"""
-            relationships = []
-            for user in self.__relationship_graph_dict:
-              for neighbour in self.__relationship_graph_dict[user]:
-                if {neighbour, user} not in relationships:
-                    relationships.append({user, neighbour})
-            return relationships
+            return self.graph.list_edges()
         
         def create_user(self,username):
             """ If "username" does not exist  in self.__relationship_graph_dict
              we need to add a key "username" should be added  to the __relationship_graph_dict
              otherwise nothing has to be done"""
-            if username not in self.__relationship_graph_dict:
-               print username 
-               self.__relationship_graph_dict[username] = []
-
+             return self.graph.create_node(username)
+        def compute_all_paths(self, source_user, target_user):
+             """returns all paths between two existing                 
        	def add_relationship(self, username1, username2):
             """ Add Relationship between two existing users, if the users doesn't exist through error"""
-            if  self.check_userExistence(username1) and self.check_userExistence(username2):
+            if  self.check_user_existence(username1) and self.check_user_existence(username2):
                 if self.check_policy('addRelation', username1, username2):
-                    self.__relationship_graph_dict[username1].append(username2)
-                    self.__relationship_graph_dict[username2].append(username1)
-                    print("relationship successfully created between",username1,"and",username2)
-                    return True
+                    if (self.graph.add_edge(username1, username2)):
+                       print("relationship successfully created between",username1,"and",username2)
+                       return True
                 else:
                     print("Policy doesn't authorize to create relationship between", username1,"and",username2)
                     return False
@@ -55,7 +46,7 @@ class RelationshipGraph(object):
 
         def delete_relationship(self, username1, username2):
             """ Delete Relationship between two existing users, if any or both of the users doesn't exist through error"""
-            if self.check_userExistence(username1) and self.check_userExistence(username2):
+            if self.check_user_existence(username1) and self.check_user_existence(username2):
                if self.check_policy("delete_relationship", username1, username2):
                   if username2 in self.__relationship_graph_dict[username1]:
                               self.__relationship_graph_dict[username1].remove(username2)
@@ -71,26 +62,11 @@ class RelationshipGraph(object):
                return False          
 
 
-        def check_userExistence(self, username):
+        def check_user_existence(self, username):
             """ Check Existence of a user"""
-            if username not in self.__relationship_graph_dict:
-               print(username,'is not a valid user')
-               return False
-            else:
-               return True
- 
-        def add_relationship_policy(self, source_user, target_user):
-           """ check policy to add relationship between two users"""
-           paths=self.find_all_paths(source_user,target_user)
-           return True
-
-        def delete_relationship_policy(self,source_user,target_user):
-           """ check  policy to delete relationship between two users"""
-           return True
-
-        def access_policy(self,source_user,target_user):
-           """check policy to access target user"""
-           return True
+            return self.graph.check_node_existence(username)
+            
+        
         
         def find_all_paths(self, source_user, target_user, path=[]):
            """ find all paths from user1 to user2 in relationship graph """
