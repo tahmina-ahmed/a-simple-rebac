@@ -34,14 +34,13 @@ class Graph(object):
                     return True
                 
 
-        def delete_relationship(self, node1, node2):
+        def delete_edge(self, node1, node2):
             """ Delete Relationship between two existing users, if any or both of the users doesn't exist through error"""
             if self.check_userExistence(node1) and self.check_userExistence(node2):
                if self.check_policy("delete_relationship", node1, node2):
                   if node2 in self._graph_dict[node1]:
                               self._graph_dict[node1].remove(node2)
                               self._graph_dict[node2].remove(node1)
-                              print("Relationship successfully Deleted Between", node1,"and",node2)
                               return True
                   else:
                     print('There is no relationship Exists between', node1,'and', node2)  
