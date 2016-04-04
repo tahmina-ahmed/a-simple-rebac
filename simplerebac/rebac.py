@@ -1,6 +1,6 @@
 from graph import Graph
 from policy import Policy
-class RelationshipGraph(object):
+class ReBAC(object):
         def __init__(self, relationship_graph_dict={}):
             """ Initializes the relationship graph"""
             Graph relationship_graph = Graph(relationship_graph_dict)
