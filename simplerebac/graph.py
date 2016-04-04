@@ -51,26 +51,25 @@ class Graph(object):
                return False          
 
 
-        def check_userExistence(self, node):
-            """ Check Existence of a user"""
+        def check_node_existence(self, node):
+            """ Check Existence of a node"""
             if node not in self._graph_dict:
-               print(node,'is not a valid user')
-               return False
+                return False
             else:
-               return True
+                return True
 
         def find_all_paths(self, source_node, target_node, path=[]):
-           """ find all paths from user1 to user2 in relationship graph """
-           relationship_graph = self._graph_dict
+           """ find all paths from a source_node to target_node in  graph """
+           graph = self._graph_dict
            path = path + [source_node]
            if source_node == target_node:
               return [path]
            if source_node not in relationship_graph:
               return []
            paths = []
-           for user in relationship_graph[source_node]:
-              if user not in path:
-                 extended_paths = self.find_all_paths(user,
+           for node in graph[source_node]:
+              if node not in path:
+                 extended_paths = self.find_all_paths(node,
                                                     target_node,
                                                     path)
                  for p in extended_paths:
@@ -78,36 +77,3 @@ class Graph(object):
            return paths
 
  
-
-if __name__ == "__main__":
-
-    g = { "a" : ["d","c"],
-          "b" : ["c","b"],
-          "c" : ["a", "b", "d", "e"],
-          "d" : ["a", "c","b"],
-          "e" : ["c"],
-          "f" : []
-        }
-
-    relationship_graph = RelationshipGraph(g)
-    
-    
-    print("Users of graph:")
-    print(relationship_graph.user_list())
-    user_to_create = raw_input('Enter a user to create:')
-    print("you are trying to create user", user_to_create)
-    relationship_graph.create_user(user_to_create)
-    print("Users of graph after Creation of:",user_to_create)
-    print(relationship_graph.user_list())
-    print("Relationship between users")
-    print(relationship_graph.relationships())
-    user1,user2 = raw_input('Add Relationship Between:').split(',')
-    relationship_graph.add_relationship(user1,user2)
-    print("Relationships between users after adding relationship between", user1,"and", user2)
-    print(relationship_graph.relationships()) 
-    user1,user2 = raw_input('Delete Relationship Between:').split(',')
-    relationship_graph.delete_relationship(user1,user2)
-    print("Relationships between users after deleting relationship between", user1,"and", user2)
-    print(relationship_graph.relationships())
-    user1,user2= raw_input("Show Path Between users:").split(',') 
-    print(relationship_graph.find_all_paths(user1,user2))
