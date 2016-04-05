@@ -21,7 +21,7 @@ if __name__ == "__main__":
          print("6. Access")
          print("7. Quit")
          try:
-             choice = int(raw_input("Enter Your choice:"))
+             choice = int(raw_input("Enter Your choice(1-7):"))
          except:
              print("input should be integer") 
          if choice == 1:
