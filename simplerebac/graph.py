@@ -17,7 +17,7 @@ class Graph(object):
            for node in self._graph_dict:
              for adjacent_node in self._graph_dict[node]:
                if {adjacent_node, node} not in edges:
-                   edges.append({node, adjacent_node})
+                   edges.append({str(node), str(adjacent_node)})
            return edges
         
         def create_node(self,node):

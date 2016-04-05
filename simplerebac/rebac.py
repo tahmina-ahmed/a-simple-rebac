@@ -33,10 +33,10 @@ class ReBAC(object):
             if  self.check_user_existence(username1) and self.check_user_existence(username2):
                 if self.check_policy('add_relationship', username1, username2):
                     if (self.relationship_graph.add_edge(username1, username2)):
-                       print("relationship successfully created between",username1,"and",username2)
+                       print("relationship successfully created between "+username1+" and "+username2)
                        return True
                 else:
-                    print("Policy doesn't authorize to create relationship between", username1,"and",username2)
+                    print("Policy doesn't authorize to create relationship between "+ username1+" and "+username2)
                     return False
             else:
                 return False 
@@ -53,7 +53,7 @@ class ReBAC(object):
                if(self.relationship_graph.check_edge(username1, username2)):
                   if self.check_policy("delete_relationship", username1, username2):
                      if(self.relationship_graph.delete_edge(username1,username2)):
-                       print("Relationship successfully Deleted Between", username1,"and",username2)
+                       print("Relationship successfully Deleted Between"+ username1+" and "+username2)
                        return True
                   else:
                     print(username1+" is not authorized to delete relationship with " + username2)
@@ -72,7 +72,7 @@ class ReBAC(object):
                    print(username1+" is allowed to access "+username2)
                    return True
                else:
-                   print(username1," is not authorized to access relationship with " + username2 )
+                   print(username1+" is not authorized to access relationship with " + username2 )
                    return False
             else:
                return False
