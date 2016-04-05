@@ -1,37 +1,38 @@
 
-from simplerebac.graph import Graph;
+import json
+import yaml
+from rebac import ReBAC
+
 
 if __name__ == "__main__":
 
-    g = { "a" : ["d","c"],
+    _initial_graph ={ "a" : ["d","c"],
           "b" : ["c","b"],
           "c" : ["a", "b", "d", "e"],
           "d" : ["a", "c","b"],
           "e" : ["c"],
           "f" : []
-        }
+}
 
-    relationship_graph = Graph(g)
-
-
-    print("Users of graph:")
-    print(relationship_graph.user_list())
-    user_to_create = raw_input('Enter a user to create:')
-    print("you are trying to create user", user_to_create)
-    relationship_graph.create_user(user_to_create)
-    print("Users of graph after Creation of:",user_to_create)
-    print(relationship_graph.user_list())
-    print("Relationship between users")
-    print(relationship_graph.relationships())
-    user1,user2 = raw_input('Add Relationship Between:').split(',')
-    relationship_graph.add_relationship(user1,user2)
-    print("Relationships between users after adding relationship between", user1,"and", user2)
-    print(relationship_graph.relationships())
-    user1,user2 = raw_input('Delete Relationship Between:').split(',')
-    relationship_graph.delete_relationship(user1,user2)
-    print("Relationships between users after deleting relationship between", user1,"and", user2)
-    print(relationship_graph.relationships())
-    user1,user2= raw_input("Show Path Between users:").split(',')
-    print(relationship_graph.find_all_paths(user1,user2))
-
-
+ 
+    with open('graph.json') as data_file:
+        _initial_graph = json.load(data_file)
+    print("Look into json --> ",str((_initial_graph["a"][0])))
+    print("Look into json --> ",list(_initial_graph.keys()))
+    print("Look into json DUMP--> ",json.dumps(_initial_graph))
+    print("Look into json DUMP--> ",json.dumps(list(_initial_graph.keys())))
+   
+    print _initial_graph
+    rebac = ReBAC(_initial_graph)
+    print(rebac.user_list())
+    print(rebac.relationships())
+    user1=raw_input("Create a new user")
+    rebac.create_user(user1)
+    print(rebac.user_list())
+    user1,user2=raw_input("Create new relationship between:").split(',')
+    print(rebac.add_relationship(user1,user2)) 
+    print("relationship after creation",rebac.relationships())
+    user1,user2 = raw_input("Delete relationship between:").split(',')
+    rebac.delete_relationship(user1,user2) 
+    user1,user2 = raw_input("Enter the two user for access:").split(',')
+    rebac.access(user1,user2)  
