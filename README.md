@@ -7,10 +7,10 @@ This simple ReBAC model only considers one type, symmetric relationship between 
 The python implementation of Simple ReBAC Model has 3 classes. The base class is graph.py which takes initial graph from graph.json and  includes all basic graph operations, class policy.py takes commandwise authorization policy rules from policy.json and evaluates the policy against a specific request. Class rebac.py imports graph.py and policy.py and uses the  policy evaluation and graph operations against a particular  request and implements the relationship based access control. Main method of this project is in main.py which works as user interface to take command request. The detail description of the classes and input json files are defined below.
 
 ####graph.json
-It includes the initial graph for the system.
-A sample graph is  stored as adjacency list as json structure.
-{ "a" : ["d","c"],
-          "b" : ["c","b"],
+It includes the initial graph for the system.<br />
+A sample graph is  stored as adjacency list as json structure.<br />
+{ "a" : ["d","c"],<br />
+          "b" : ["c","b"],<br />
           "c" : ["a", "b", "d", "e"],
           "d" : ["a", "c","b"],
           "e" : ["c"],
