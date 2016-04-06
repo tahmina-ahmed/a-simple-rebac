@@ -19,11 +19,16 @@ A sample graph is  stored as adjacency list as json structure.
 
 ####graph.py
 In graph.py the graph is stored as an adjacency list in a python dictionary _graph_dict. All the methods of this class are graph operations.
-*list_nodes: 
-*list_edges:
-*
-
+######list_nodes: returns the list of all nodes of the graph 
+######list_edges: generate edges from the graph and returns the list of all edges
+######create_node(node1): creates a new node node1 in the graph
+######add_edge(node1,node2): creates edges between two existing nodes node1 and node2
+######delete_edge(node1,node2): deletes an existing edge between two existing nodes node1 and node2
+######check_edge(node1,node2):checks the existence of an edge between node1 and node2
+######check_node_existence(node1):checks the existence of a node
+######find_all_paths(source_node,target_node,paths=[]): this recursive method finds all the simple path between source_node and target node using depth first search and retruns the list pf paths as a list of lists
 ####policy.py
+
 ####policy.json
 ####Graph.py
 ####Graph.py
