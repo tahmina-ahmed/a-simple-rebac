@@ -9,13 +9,14 @@ The python implementation of Simple ReBAC Model has 3 classes. The base class is
 ####graph.json
 It includes the initial graph for the system.<br />
 A sample graph is  stored as adjacency list as json structure.<br />
-{ "a" : ["d","c"],<br />
+{ <br />
+          "a" : ["d","c"],<br />
           "b" : ["c","b"],<br />
-          "c" : ["a", "b", "d", "e"],
-          "d" : ["a", "c","b"],
-          "e" : ["c"],
-          "f" : []
-}
+          "c" : ["a", "b", "d", "e"],<br />
+          "d" : ["a", "c","b"],<br />
+          "e" : ["c"],<br />
+          "f" : []<br />
+}<br />
 
 ####graph.py
 In graph.py the graph is stored as an adjacency list in a python dictionary _graph_dict. All the methods of this class are graph operations.
@@ -29,22 +30,22 @@ In graph.py the graph is stored as an adjacency list in a python dictionary _gra
 ######find_all_paths(source_node,target_node,paths=[]): this recursive method finds all the simple path between source_node and target node using depth first search and retruns the list pf paths as a list of lists
 ####policy.json 
 It includes the system policy for different operational commands. Here is a sample policy for three different operational commands of simple rebac model. 
-{
-"add_relationship":[-1],
-"delete_relationship" :[1,-3],
-"access":[]
-}
+{<br />
+"add_relationship":[-1],<br />
+"delete_relationship" :[1,-3],<br />
+"access":[]<br />
+}<br />
 ######Policy Implication:
-1.Policy "add_relationship:[-1]" indicates that to authorize an add relationship command between a source user and a target user the source user shouldn't have one level relationship already exists with the target user 
-2.Policy "delete_relationship:[1,-3]" indicates that to authorize a delete relationship command between a source user and a target user the source user must have one level relationship already exists with the target user and it shouldn't have 3 level relationship with the target user.
-3. Policy "access": [] indicates that to authorize access command any source user can access any other user in the graph without having any particular relationship requirements. 
+1.Policy "add_relationship:[-1]" indicates that to authorize an add relationship command between a source user and a target user the source user shouldn't have one level relationship already exists with the target user.<br /> 
+2.Policy "delete_relationship:[1,-3]" indicates that to authorize a delete relationship command between a source user and a target user the source user must have one level relationship already exists with the target user and it shouldn't have 3 level relationship with the target user.<br />
+3. Policy "access": [] indicates that to authorize access command any source user can access any other user in the graph without having any particular relationship requirements. <br />
 ####policy.py
 The policy class reads policy from policy.json an evalutes that policy against a particular command request. The methods for policy.py are as follows:
-######
-######
-######
-
+######check_policy(action_type, source_user, target_user, paths):check policytakes a request with four parameters particular command as action_type, who is requesting the action as source-user and on whom as target user and already computed all paths between the two users as paths
+######compute_path_dict(paths): compute path dict makes dictionary of all paths between two users where length is the key and paths are value.
+######evaluate_policy(action_type, source_user, target_user,path_dict): evaluates policy do the actual evaluation of the policy and returns True or False. It checks path dictionary against policy policy dictionary considering action_type and returns true or false.  
 ####rebac.py
+ReBAC class 
 ####main.py
 
 
