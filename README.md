@@ -45,8 +45,15 @@ The policy class reads policy from policy.json an evalutes that policy against a
 ######compute_path_dict(paths): compute path dict makes dictionary of all paths between two users where length is the key and paths are value.
 ######evaluate_policy(action_type, source_user, target_user,path_dict): evaluates policy do the actual evaluation of the policy and returns True or False. It checks path dictionary against policy policy dictionary considering action_type and returns true or false.  
 ####rebac.py
-ReBAC class 
+ReBAC class imports and initializes  Graph and Policy class. It checks existence of users, relationship and policy authorization before  issuing a command to graph class.
+######user_list(): return the list of users
+######relationships(): returns the list of relationships among users
+######create_user(username1): creates a new user
+######add_relationship(username1, username2): check existence of users, check policy and adds a relationship between two existing users
+######delete_relationship(username1, username2):  check existence of users, check existence of relationship between two users, check policy and deletes relationship between username1 and username2
+
 ####main.py
+imports ReBAC , initializes the relationship graph and takes user input for particular operations
 
 
 
